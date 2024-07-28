@@ -69,6 +69,10 @@ Or you can add it to your Hyprland config (hyprland.conf) to auto-start with:
 exec-once = ags
 ```
 
+### Notifications
+
+HyprPanel handles notifications through the AGS built-in notification service. If you're already using a notification daemon such as Dunst or Mako, you may have to stop them to prevent conflicts with HyprPanel.
+
 > NOTE: If your system is in a language other than English, the resource monitor in the dashboard may not work properly.
 
 ## Configuration

@@ -14,6 +14,13 @@ export const BarSettings = () => {
                 Header('Layouts'),
                 Option({ opt: options.bar.layouts, title: 'Bar Layouts for Monitors', subtitle: 'Please refer to the github README for instructions: https://github.com/Jas-SinghFSU/HyprPanel', type: 'object' }, 'bar-layout-input'),
 
+                Header('Spacing'),
+                Option({ opt: options.theme.bar.floating, title: 'Floating Bar', type: 'boolean' }),
+                Option({ opt: options.theme.bar.margin_top, title: 'Margin Top', subtitle: 'Only applies if floating is enabled', type: 'string' }),
+                Option({ opt: options.theme.bar.margin_bottom, title: 'Margin Bottom', subtitle: 'Only applies if floating is enabled', type: 'string' }),
+                Option({ opt: options.theme.bar.margin_sides, title: 'Margin Sides', subtitle: 'Only applies if floating is enabled', type: 'string' }),
+                Option({ opt: options.theme.bar.border_radius, title: 'Border Radius', subtitle: 'Only applies if floating is enabled', type: 'string' }),
+
                 Header('Dashboard'),
                 Option({ opt: options.bar.launcher.icon, title: 'Dashboard Menu Icon', type: 'string' }),
 
@@ -22,8 +29,11 @@ export const BarSettings = () => {
                 Option({ opt: options.bar.workspaces.icons.available, title: 'Workspace Available', type: 'string' }),
                 Option({ opt: options.bar.workspaces.icons.active, title: 'Workspace Active', type: 'string' }),
                 Option({ opt: options.bar.workspaces.icons.occupied, title: 'Workspace Occupied', type: 'string' }),
+                Option({ opt: options.bar.workspaces.spacing, title: 'Spacing', subtitle: 'Spacing between workspace icons', type: 'float' }),
                 Option({ opt: options.bar.workspaces.workspaces, title: 'Total Workspaces', type: 'number' }),
                 Option({ opt: options.bar.workspaces.monitorSpecific, title: 'Monitor Specific', subtitle: 'Only workspaces applicable to the monitor will be displayed', type: 'boolean' }),
+                Option({ opt: options.bar.workspaces.reverse_scroll, title: 'Invert Scroll', subtitle: 'Scrolling up will go to the previous workspace rather than the next.', type: 'boolean' }),
+                Option({ opt: options.bar.workspaces.scroll_speed, title: 'Scrolling Speed', type: 'number' }),
 
                 Header('Volume'),
                 Option({ opt: options.bar.volume.label, title: 'Show Volume Percentage', type: 'boolean' }),
