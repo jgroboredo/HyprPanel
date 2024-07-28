@@ -10,6 +10,8 @@ import { NotificationAnchor } from "lib/types/options";
 
 const { position, timeout, cache_actions } = options.notifications;
 
+const hyprland = await Service.import("hyprland");
+
 export default () => {
     Utils.merge([timeout.bind("value"), cache_actions.bind("value")], (timeout, doCaching) => {
         notifs.popupTimeout = timeout;
@@ -32,7 +34,6 @@ export default () => {
     return Widget.Window({
         name: "notifications-window",
         class_name: "notifications-window",
-        monitor: 2,
         layer: "top",
         anchor: position.bind("value").as(v => getPosition(v)),
         exclusivity: "ignore",
@@ -63,5 +64,10 @@ export default () => {
                 });
             },
         }),
-    });
+    }).hook(
+        hyprland.active,
+        (self) => {
+          self.monitor = hyprland.active.monitor.id;
+        },
+      );;
 };
