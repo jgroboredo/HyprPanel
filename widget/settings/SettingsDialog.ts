@@ -3,10 +3,11 @@ import icons from "lib/icons"
 import options from "options"
 import { ThemesMenu } from "./pages/theme/index"
 import { SettingsMenu } from "./pages/config/index"
+import "./side_effects";
 
 type Page = "Configuration" | "Theming"
 
-const CurrentPage = Variable<Page>("Theming");
+const CurrentPage = Variable<Page>("Configuration");
 
 const pagerMap: Page[] = [
     "Configuration",

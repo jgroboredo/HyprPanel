@@ -53,12 +53,30 @@ const options = mkOptions(OPTIONS, {
                 label: opt(colors.crust)
             }
         },
+        osd: {
+            enable: opt(true),
+            orientation: opt<"horizontal" | "vertical">("vertical"),
+            bar_container: opt(colors.crust),
+            icon_container: opt(colors.lavender),
+            bar_color: opt(colors.lavender),
+            bar_empty_color: opt(colors.surface0),
+            bar_overflow_color: opt(colors.red),
+            icon: opt(colors.crust),
+            label: opt(colors.lavender),
+            monitor: opt(0),
+            active_monitor: opt(true),
+            radius: opt("0.4em"),
+            margins: opt("0px 5px 0px 0px"),
+            location: opt<"top left" | "top" | "top right" | "right" | "bottom right" | "bottom" | "bottom left" | "left">("right"),
+        },
         bar: {
             floating: opt(false),
             margin_top: opt("0.5em"),
             margin_bottom: opt("0em"),
             margin_sides: opt("0.5em"),
             border_radius: opt("0.4em"),
+            outer_spacing: opt("1.6em"),
+            label_spacing: opt("0.5em"),
             transparent: opt(false),
             background: opt(colors.crust),
             buttons: {
@@ -80,36 +98,43 @@ const options = mkOptions(OPTIONS, {
                     available: opt(colors.sky),
                     occupied: opt(colors.flamingo),
                     active: opt(colors.pink),
+                    numbered_active_highlight_border: opt("0.2em"),
+                    numbered_active_text_color: opt(colors.mantle),
                 },
                 windowtitle: {
                     background: opt(colors.base2),
                     hover: opt(colors.surface1),
                     text: opt(colors.pink),
-                    icon: opt(colors.pink)
+                    icon: opt(colors.pink),
+                    spacing: opt("0.5em"),
                 },
                 media: {
                     background: opt(colors.base2),
                     hover: opt(colors.surface1),
                     text: opt(colors.lavender),
-                    icon: opt(colors.lavender)
+                    icon: opt(colors.lavender),
+                    spacing: opt("0.5em"),
                 },
                 volume: {
                     background: opt(colors.base2),
                     hover: opt(colors.surface1),
                     text: opt(colors.maroon),
                     icon: opt(colors.maroon),
+                    spacing: opt("0.5em"),
                 },
                 network: {
                     background: opt(colors.base2),
                     hover: opt(colors.surface1),
                     text: opt(colors.mauve),
                     icon: opt(colors.mauve),
+                    spacing: opt("0.5em"),
                 },
                 bluetooth: {
                     background: opt(colors.base2),
                     hover: opt(colors.surface1),
                     text: opt(colors.sky),
                     icon: opt(colors.sky),
+                    spacing: opt("0.5em"),
                 },
                 systray: {
                     background: opt(colors.base2),
@@ -120,6 +145,7 @@ const options = mkOptions(OPTIONS, {
                     hover: opt(colors.surface1),
                     text: opt(colors.yellow),
                     icon: opt(colors.yellow),
+                    spacing: opt("0.5em"),
                 },
                 clock: {
                     background: opt(colors.base2),
@@ -131,7 +157,8 @@ const options = mkOptions(OPTIONS, {
                     background: opt(colors.base2),
                     hover: opt(colors.surface1),
                     icon: opt(colors.lavender),
-                    total: opt(colors.lavender)
+                    total: opt(colors.lavender),
+                    spacing: opt("0.5em"),
                 },
             },
             menus: {
@@ -576,6 +603,8 @@ const options = mkOptions(OPTIONS, {
         },
         workspaces: {
             show_icons: opt(false),
+            show_numbered: opt(false),
+            numbered_active_indicator: opt<"underline" | "highlight">("underline"),
             icons: {
                 available: opt(""),
                 active: opt(""),
@@ -711,22 +740,6 @@ const options = mkOptions(OPTIONS, {
     },
 
     terminal: opt("kitty"),
-
-    osd: {
-        progress: {
-            vertical: opt(true),
-            pack: {
-                h: opt<"start" | "center" | "end">("end"),
-                v: opt<"start" | "center" | "end">("center"),
-            },
-        },
-        microphone: {
-            pack: {
-                h: opt<"start" | "center" | "end">("center"),
-                v: opt<"start" | "center" | "end">("end"),
-            },
-        },
-    },
 
     notifications: {
         position: opt<"top" | "top right" | "top left" | "bottom" | "bottom right" | "bottom left">("top right"),
