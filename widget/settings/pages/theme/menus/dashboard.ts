@@ -55,6 +55,8 @@ export const DashboardMenuTheme = () => {
                 Option({ opt: options.theme.bar.menus.menu.dashboard.controls.volume.text, title: 'Volume Button Text', type: 'color' }),
                 Option({ opt: options.theme.bar.menus.menu.dashboard.controls.input.background, title: 'Input Button', type: 'color' }),
                 Option({ opt: options.theme.bar.menus.menu.dashboard.controls.input.text, title: 'Input Button Text', type: 'color' }),
+                Option({ opt: options.theme.bar.menus.menu.dashboard.controls.idle_inhibitor.background, title: 'Idle Inhibitor Button', type: 'color' }),
+                Option({ opt: options.theme.bar.menus.menu.dashboard.controls.idle_inhibitor.text, title: 'Idle Inhibitor Button Text', type: 'color' }),
 
                 Header('Directories'),
                 Option({ opt: options.theme.bar.menus.menu.dashboard.directories.left.top.color, title: 'Directory: Left - Top', type: 'color' }),

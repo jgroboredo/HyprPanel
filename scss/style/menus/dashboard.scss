@@ -188,6 +188,10 @@
         background: if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-dashboard-controls-input-background);
       }
 
+      &.idle_inhibitor {
+        background: if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-dashboard-controls-idle_inhibitor-background);
+      }
+
       &.wifi:hover {
         background: transparentize(if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-dashboard-controls-wifi-background), 0.5);
       }
@@ -206,6 +210,10 @@
 
       &.input:hover {
         background: transparentize(if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-dashboard-controls-input-background), 0.5);
+      }
+
+      &.idle_inhibitor:hover {
+        background: transparentize(if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-dashboard-controls-idle_inhibitor-background), 0.5);
       }
 
       &.disabled {
@@ -229,6 +237,10 @@
 
         &.input:hover {
           background: transparentize(if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-dashboard-controls-input-background), 0.5);
+        }
+
+        &.idle_inhibitor:hover {
+          background: transparentize(if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-dashboard-controls-idle_inhibitor-background), 0.5);
         }
       }
     }
