@@ -2,6 +2,26 @@ const network = await Service.import("network");
 const bluetooth = await Service.import("bluetooth");
 const notifications = await Service.import("notifications");
 const audio = await Service.import("audio");
+const idle_inhibitor = Variable(false);
+
+const IdleInhibitorLabel = Widget.Label({
+  setup: (self) => {
+    self.hook(idle_inhibitor, () => {
+      return (self.label = idle_inhibitor.value ? "💤" : "🍵");
+    });
+  },
+}).poll(1000, self => {
+    const current_inhibitor_state = Utils.exec('bash -c "matcha --status"');
+    if(current_inhibitor_state === "Off") {
+      idle_inhibitor.setValue(false);
+      self.label = "🍵"
+    }
+    else
+    {
+      idle_inhibitor.setValue(true);
+      self.label = "💤"
+    }
+})
 
 const Controls = () => {
   return Widget.Box({
@@ -88,6 +108,27 @@ const Controls = () => {
             });
           },
         }),
+      }),
+      Widget.Button({
+        tooltip_text: "Toggle Idle Inhibitor",
+        expand: true,
+        onClicked: () => {
+            idle_inhibitor.setValue(!idle_inhibitor.value);
+            Utils.execAsync(["matcha", "-t"]);
+        },
+        setup: (self) => {
+          // Start the matcha daemon with the inhibitor off
+          idle_inhibitor.setValue(false);
+          Utils.execAsync(["bash", "-c", "pidof matcha || matcha -d -o"]);
+          const current_inhibitor_state = Utils.exec('bash -c "matcha --status"');
+          if(current_inhibitor_state !== "Off") {
+            Utils.execAsync(["matcha", "-t"]);
+          }
+          self.hook(idle_inhibitor, () => {
+            return (self.class_name = `dashboard-button idle_inhibitor ${idle_inhibitor ? "disabled" : ""}`);
+          });
+        },
+        child: IdleInhibitorLabel,
       }),
     ],
   });

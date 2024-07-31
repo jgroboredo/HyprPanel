@@ -545,6 +545,10 @@ const options = mkOptions(OPTIONS, {
                                 background: opt(colors.pink),
                                 text: opt(secondary_colors.mantle),
                             },
+                            idle_inhibitor: {
+                                background: opt(colors.sky),
+                                text: opt(colors.crust),
+                            },
                         },
                         directories: {
                             left: {
