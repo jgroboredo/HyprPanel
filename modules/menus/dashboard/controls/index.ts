@@ -4,24 +4,32 @@ const notifications = await Service.import("notifications");
 const audio = await Service.import("audio");
 const idle_inhibitor = Variable(false);
 
+const matcha_sub = Variable({ msg: '' }, {
+    listen: ['matcha --subscribe', (msg) => ({
+        msg: msg,
+    })],
+})
+
 const IdleInhibitorLabel = Widget.Label({
   setup: (self) => {
     self.hook(idle_inhibitor, () => {
       return (self.label = idle_inhibitor.value ? "💤" : "🍵");
     });
   },
-}).poll(1000, self => {
-    const current_inhibitor_state = Utils.exec('bash -c "matcha --status"');
-    if(current_inhibitor_state === "Off") {
-      idle_inhibitor.setValue(false);
-      self.label = "🍵"
-    }
-    else
-    {
-      idle_inhibitor.setValue(true);
-      self.label = "💤"
-    }
+  label: matcha_sub.bind().as(({ msg }) => {
+    console.log(msg)
+      if(msg === "Off") {
+        idle_inhibitor.setValue(false);
+        return "🍵"
+      }
+      else
+      {
+        idle_inhibitor.setValue(true);
+        return "💤"
+      }
+    }),
 })
+
 
 const Controls = () => {
   return Widget.Box({
