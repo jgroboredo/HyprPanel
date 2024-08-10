@@ -11,7 +11,7 @@ curl -fsSL https://bun.sh/install | bash && \
   sudo ln -s $HOME/.bun/bin/bun /usr/local/bin/bun
 ```
 Additional dependencies:
-```
+```sh
 pipewire
 bluez
 bluez-utils
@@ -20,27 +20,32 @@ gpu-screen-recorder
 hyprpicker
 btop
 networkmanager
+matugen
+wl-clipboard
+swww
 dart-sass
 brightnessctl
 gnome-bluetooth-3.0
 ```
 
 Optional Dependencies:
-```
-// Used for Tracking GPU Usage in your Dashboard (NVidia only)
+```sh
+## Used for Tracking GPU Usage in your Dashboard (NVidia only)
 python
 python-gpustat
 ```
 
 Arch (pacman):
 ```bash
-sudo pacman -S pipewire bluez bluez-utils btop networkmanager dart-sass brightnessctl python gnome-bluetooth-3.0
+sudo pacman -S pipewire bluez bluez-utils btop networkmanager dart-sass wl-clipboard brightnessctl swww python gnome-bluetooth-3.0
 ```
 
 Arch (AUR):
 ```bash
-yay -S grimblast gpu-screen-recorder hyprpicker python-gpustat aylurs-gtk-shell-git
+yay -S grimblast-git gpu-screen-recorder hyprpicker matugen-bin python-gpustat aylurs-gtk-shell-git
 ```
+
+For NixOS/Home-Manager, see [NixOS & Home-Manager instructions](#nixos--home-manager).
 
 ## Instructions
 
@@ -67,6 +72,70 @@ ags
 Or you can add it to your Hyprland config (hyprland.conf) to auto-start with:
 ```bash
 exec-once = ags
+```
+
+### NixOS & Home-Manager
+Alternatively, if you're using NixOS and/or Home-Manager, you can setup AGS using the provided Nix Flake. First, add the repository to your Flake's inputs, and enable the overlay.
+```nix
+# flake.nix
+
+{
+  inputs.hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+  # ...
+
+  outputs = { self, nixpkgs, ... }@inputs: 
+  let
+    # ...
+	system = "x86_64-linux"; # change to whatever your system should be.
+    pkgs = import nixpkgs {
+	  inherit system;
+	  # ...
+	  overlays = [
+        inputs.hyprpanel.overlay.${system}
+	  ];
+	};
+  in {
+    # ...
+  }
+}
+```
+
+Once you've set up the overlay, you can reference HyprPanel with `pkgs.hyprpanel` as if it were any other Nix package. This means you can reference it as a NixOS system/user package, a Home-Manager user package, or as a direct reference in your Hyprland configuration (if your configuration is managed by Home-Manager). The first three methods will add it to your `$PATH` (first globally, second two user-only), however the final will not.
+
+```nix
+# configuration.nix
+
+# install it as a system package
+environment.systemPackages = with pkgs; [
+  # ...
+  hyprpanel
+  # ...
+];
+
+# or install it as a user package
+users.users.<username>.packages = with pkgs; [
+  # ...
+  hyprpanel
+  # ...
+];
+
+
+# home.nix
+
+# install it as a user package with home-manager
+home.packages = with pkgs; [
+  # ...
+  hyprpanel
+  # ...
+];
+
+# or reference it directly in your Hyprland configuration
+wayland.windowManager.hyprland.settings.exec-once = ''
+  # ...
+  ${pkgs.hyprpanel}/bin/hyprpanel
+  # ...
+'';
+
 ```
 
 ### Notifications

@@ -3,12 +3,9 @@ import { Inputter } from "./Inputter";
 import icons from "lib/icons";
 import { RowProps } from "lib/types/options";
 
-type Option = {
-    title: string,
-    subtitle: string,
-
-}
 export const Option = <T>(props: RowProps<T>, className: string = '') => {
+    const isUnsaved = Variable(false);
+
     return Widget.Box({
         class_name: "option-item",
         hexpand: true,
@@ -19,7 +16,7 @@ export const Option = <T>(props: RowProps<T>, className: string = '') => {
                 hexpand: true,
                 child: Label(props.title, props.subtitle || ""),
             }),
-            Inputter(props, className),
+            Inputter(props, className, isUnsaved),
             Widget.Button({
                 vpack: "center",
                 class_name: "reset-options",

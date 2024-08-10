@@ -1,9 +1,9 @@
-import { OSDAnchor } from "lib/types/options";
 import options from "options";
 import brightness from "services/Brightness"
 import { OSDLabel } from "./label/index";
 import { OSDBar } from "./bar/index";
 import { OSDIcon } from "./icon/index";
+import { getPosition } from "lib/utils";
 const hyprland = await Service.import("hyprland");
 const audio = await Service.import("audio")
 
@@ -38,20 +38,6 @@ const handleReveal = (self: any, property: string) => {
     })
 }
 
-const getPosition = (pos: OSDAnchor): ("top" | "bottom" | "left" | "right")[] => {
-    const positionMap: { [key: string]: ("top" | "bottom" | "left" | "right")[] } = {
-        "top": ["top"],
-        "top right": ["top", "right"],
-        "top left": ["top", "left"],
-        "bottom": ["bottom"],
-        "bottom right": ["bottom", "right"],
-        "bottom left": ["bottom", "left"],
-        "right": ["right"],
-        "left": ["left"],
-    };
-
-    return positionMap[pos];
-}
 const renderOSD = () => {
 
 
@@ -65,12 +51,19 @@ const renderOSD = () => {
             self.hook(brightness, () => {
                 handleReveal(self, "reveal_child");
             }, "notify::kbd")
+            self.hook(audio.microphone, () => {
+                handleReveal(self, "reveal_child");
+            }, "notify::volume")
+            self.hook(audio.microphone, () => {
+                handleReveal(self, "reveal_child");
+            }, "notify::is-muted")
             self.hook(audio.speaker, () => {
                 handleReveal(self, "reveal_child");
             }, "notify::volume")
             self.hook(audio.speaker, () => {
-                handleReveal(self, "visible");
+                handleReveal(self, "reveal_child");
             }, "notify::is-muted")
+
 
         },
         child: Widget.Box({
@@ -126,12 +119,17 @@ export default () => Widget.Window({
         self.hook(brightness, () => {
             handleReveal(self, "visible");
         }, "notify::kbd")
+        self.hook(audio.microphone, () => {
+            handleReveal(self, "visible");
+        }, "notify::volume")
+        self.hook(audio.microphone, () => {
+            handleReveal(self, "visible");
+        }, "notify::is-muted")
         self.hook(audio.speaker, () => {
             handleReveal(self, "visible");
         }, "notify::volume")
         self.hook(audio.speaker, () => {
             handleReveal(self, "visible");
         }, "notify::is-muted")
-
     },
 })

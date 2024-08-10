@@ -6,11 +6,17 @@ import { Action } from "./actions/index.js";
 import { Header } from "./header/index.js";
 import { Body } from "./body/index.js";
 import { CloseButton } from "./close/index.js";
-import { NotificationAnchor } from "lib/types/options";
-
-const { position, timeout, cache_actions } = options.notifications;
-
+import { getPosition } from "lib/utils.js";
 const hyprland = await Service.import("hyprland");
+
+const { position, timeout, cache_actions, monitor, active_monitor } = options.notifications;
+
+
+const curMonitor = Variable(monitor.value);
+
+hyprland.active.connect("changed", () => {
+    curMonitor.value = hyprland.active.monitor.id;
+})
 
 export default () => {
     Utils.merge([timeout.bind("value"), cache_actions.bind("value")], (timeout, doCaching) => {
@@ -18,23 +24,21 @@ export default () => {
         notifs.cacheActions = doCaching;
     });
 
-    const getPosition = (pos: NotificationAnchor): ("top" | "bottom" | "left" | "right")[] => {
-        const positionMap: { [key: string]: ("top" | "bottom" | "left" | "right")[] } = {
-            "top": ["top"],
-            "top right": ["top", "right"],
-            "top left": ["top", "left"],
-            "bottom": ["bottom"],
-            "bottom right": ["bottom", "right"],
-            "bottom left": ["bottom", "left"]
-        };
-
-        return positionMap[pos] || ["top"];
-    }
-
     return Widget.Window({
         name: "notifications-window",
         class_name: "notifications-window",
-        layer: "top",
+        monitor: Utils.merge([
+            curMonitor.bind("value"),
+            monitor.bind("value"),
+            active_monitor.bind("value")], (curMon, mon, activeMonitor) => {
+                if (activeMonitor === true) {
+                    return curMon;
+                }
+    
+                return mon;
+            }
+        ),
+        layer: "overlay",
         anchor: position.bind("value").as(v => getPosition(v)),
         exclusivity: "ignore",
         child: Widget.Box({
@@ -64,10 +68,5 @@ export default () => {
                 });
             },
         }),
-    }).hook(
-        hyprland.active,
-        (self) => {
-          self.monitor = hyprland.active.monitor.id;
-        },
-      );;
+    });
 };

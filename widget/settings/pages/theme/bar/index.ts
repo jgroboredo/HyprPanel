@@ -6,7 +6,7 @@ import options from "options";
 export const BarTheme = () => {
     return Widget.Scrollable({
         vscroll: "always",
-        hscroll: "never",
+        hscroll: "automatic",
         class_name: "bar-theme-page paged-container",
         child: Widget.Box({
             vertical: true,
@@ -14,7 +14,7 @@ export const BarTheme = () => {
                 Header('General'),
                 Option({ opt: options.theme.bar.transparent, title: 'Transparent', type: 'boolean' }),
                 Option({ opt: options.theme.bar.background, title: 'Background Color', type: 'color' }),
-                Option({ opt: options.theme.bar.buttons.monochrome, title: 'Use Global Colors', type: 'boolean' }),
+                Option({ opt: options.theme.bar.buttons.monochrome, title: 'Use Global Colors', type: 'boolean', disabledBinding: options.theme.matugen }),
                 Option({ opt: options.theme.bar.buttons.background, title: 'Button Background', type: 'color' }),
                 Option({ opt: options.theme.bar.buttons.hover, title: 'Button Hover', type: 'color' }),
                 Option({ opt: options.theme.bar.buttons.text, title: 'Button Text', type: 'color' }),
