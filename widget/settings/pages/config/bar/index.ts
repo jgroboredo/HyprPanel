@@ -12,13 +12,15 @@ export const BarSettings = () => {
             vertical: true,
             children: [
                 Header('Layouts'),
-                Option({ opt: options.bar.layouts, title: 'Bar Layouts for Monitors', subtitle: 'Please refer to the github README for instructions: https://github.com/Jas-SinghFSU/HyprPanel', type: 'object' }, 'bar-layout-input'),
+                Option({ opt: options.bar.layouts, title: 'Bar Layouts for Monitors', subtitle: 'Wiki Link: https://hyprpanel.com/configuration/panel.html#layouts', type: 'object', subtitleLink: 'https://hyprpanel.com/configuration/panel.html#layouts' }, 'bar-layout-input'),
 
                 Header('Spacing'),
                 Option({ opt: options.theme.bar.outer_spacing, title: 'Outer Spacing', subtitle: 'Spacing on the outer left and right edges of the bar.', type: 'string' }),
+                Option({ opt: options.theme.bar.buttons.y_margins, title: 'Vertical Margins', subtitle: 'Spacing above/below the buttons in the bar.', type: 'string' }),
                 Option({ opt: options.theme.bar.buttons.spacing, title: 'Button Spacing', subtitle: 'Spacing between the buttons in the bar.', type: 'string' }),
                 Option({ opt: options.theme.bar.buttons.radius, title: 'Button Radius', type: 'string' }),
                 Option({ opt: options.theme.bar.floating, title: 'Floating Bar', type: 'boolean' }),
+                Option({ opt: options.theme.bar.layer, title: 'Layer', type: 'enum', subtitle: 'Layer determines the Z index of your bar.', enums: ["top", "bottom", "overlay", "background"] }),
                 Option({ opt: options.theme.bar.margin_top, title: 'Margin Top', subtitle: 'Only applies if floating is enabled', type: 'string' }),
                 Option({ opt: options.theme.bar.margin_bottom, title: 'Margin Bottom', subtitle: 'Only applies if floating is enabled', type: 'string' }),
                 Option({ opt: options.theme.bar.margin_sides, title: 'Margin Sides', subtitle: 'Only applies if floating is enabled', type: 'string' }),
@@ -45,6 +47,7 @@ export const BarSettings = () => {
 
                 Header('Window Titles'),
                 Option({ opt: options.theme.bar.buttons.windowtitle.spacing, title: 'Inner Spacing', subtitle: 'Spacing between the icon and the label inside the buttons.', type: 'string' }),
+                Option({ opt: options.bar.windowtitle.title_map, title: 'Window Title Mappings', subtitle: 'Wiki Link: https://hyprpanel.com/configuration/panel.html#window-title-mappings', type: 'object', subtitleLink: 'https://hyprpanel.com/configuration/panel.html#window-title-mappings' }),
 
                 Header('Volume'),
                 Option({ opt: options.bar.volume.label, title: 'Show Volume Percentage', type: 'boolean' }),

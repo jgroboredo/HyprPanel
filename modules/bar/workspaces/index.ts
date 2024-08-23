@@ -2,13 +2,13 @@ const hyprland = await Service.import("hyprland");
 import { WorkspaceRule, WorkspaceMap } from "lib/types/workspace";
 import options from "options";
 
-const { 
-    workspaces, 
+const {
+    workspaces,
     monitorSpecific,
-    workspaceMask, 
-    reverse_scroll, 
-    scroll_speed, 
-    spacing 
+    workspaceMask,
+    reverse_scroll,
+    scroll_speed,
+    spacing
 } = options.bar.workspaces;
 
 function range(length: number, start = 1) {
@@ -188,16 +188,16 @@ const Workspaces = (monitor = -1, ws = 8) => {
                                         ],
                                         (show_icons, show_numbered, numbered_active_indicator) => {
                                             if (show_icons) {
-                                                return `workspace-icon`;
+                                                return `workspace-icon txt-icon bar`;
                                             }
                                             if (show_numbered) {
                                                 const numActiveInd = hyprland.active.workspace.id === i
                                                     ? numbered_active_indicator
                                                     : "";
 
-                                                return `workspace-number ${numActiveInd}`;
+                                                return `workspace-number can_${numbered_active_indicator} ${numActiveInd}`;
                                             }
-                                            return "";
+                                            return "default";
                                         },
                                     ),
                                     label: Utils.merge(

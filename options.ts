@@ -85,6 +85,7 @@ const options = mkOptions(OPTIONS, {
             weight: opt(600),
         },
         notification: {
+            scaling: opt(100),
             background: opt(tertiary_colors.mantle),
             opacity: opt(100),
             actions: {
@@ -102,6 +103,7 @@ const options = mkOptions(OPTIONS, {
             }
         },
         osd: {
+            scaling: opt(100),
             enable: opt(true),
             orientation: opt<OSDOrientation>("vertical"),
             opacity: opt(100),
@@ -117,9 +119,12 @@ const options = mkOptions(OPTIONS, {
             radius: opt("0.4em"),
             margins: opt("0px 5px 0px 0px"),
             location: opt<OSDAnchor>("right"),
+            muted_zero: opt(false),
         },
         bar: {
+            scaling: opt(100),
             floating: opt(false),
+            layer: opt<"top" | "bottom" | "overlay" | "background">("top"),
             margin_top: opt("0.5em"),
             opacity: opt(100),
             margin_bottom: opt("0em"),
@@ -132,8 +137,11 @@ const options = mkOptions(OPTIONS, {
             buttons: {
                 monochrome: opt(false),
                 spacing: opt("0.25em"),
+                y_margins: opt("0.4em"),
                 radius: opt("0.3em"),
                 opacity: opt(100),
+                background_opacity: opt(100),
+                background_hover_opacity: opt(100),
                 background: opt(colors.base2),
                 hover: opt(colors.surface1),
                 text: opt(colors.lavender),
@@ -145,7 +153,7 @@ const options = mkOptions(OPTIONS, {
                 },
                 workspaces: {
                     background: opt(colors.base2),
-                    hover: opt(colors.surface1),
+                    hover: opt(colors.pink),
                     available: opt(colors.sky),
                     occupied: opt(colors.flamingo),
                     active: opt(colors.pink),
@@ -282,6 +290,7 @@ const options = mkOptions(OPTIONS, {
                 },
                 menu: {
                     media: {
+                        scaling: opt(100),
                         song: opt(tertiary_colors.lavender),
                         artist: opt(tertiary_colors.teal),
                         album: opt(tertiary_colors.pink),
@@ -309,6 +318,7 @@ const options = mkOptions(OPTIONS, {
                         }
                     },
                     volume: {
+                        scaling: opt(100),
                         card: {
                             color: opt(colors.base),
                         },
@@ -348,6 +358,7 @@ const options = mkOptions(OPTIONS, {
                         }
                     },
                     network: {
+                        scaling: opt(100),
                         card: {
                             color: opt(colors.base),
                         },
@@ -378,6 +389,7 @@ const options = mkOptions(OPTIONS, {
                         },
                     },
                     bluetooth: {
+                        scaling: opt(100),
                         card: {
                             color: opt(colors.base),
                         },
@@ -419,6 +431,7 @@ const options = mkOptions(OPTIONS, {
                         },
                     },
                     battery: {
+                        scaling: opt(100),
                         card: {
                             color: opt(colors.base),
                         },
@@ -448,6 +461,7 @@ const options = mkOptions(OPTIONS, {
                         },
                     },
                     clock: {
+                        scaling: opt(100),
                         card: {
                             color: opt(colors.base),
                         },
@@ -490,6 +504,8 @@ const options = mkOptions(OPTIONS, {
                         },
                     },
                     dashboard: {
+                        scaling: opt(100),
+                        confirmation_scaling: opt(100),
                         card: {
                             color: opt(colors.base),
                         },
@@ -595,6 +611,7 @@ const options = mkOptions(OPTIONS, {
                         },
                     },
                     notifications: {
+                        scaling: opt(100),
                         label: opt(colors.lavender),
                         no_notifications_label: opt(colors.surface0),
                         background: opt(colors.crust),
@@ -667,6 +684,9 @@ const options = mkOptions(OPTIONS, {
         }),
         launcher: {
             icon: opt("󰣇"),
+        },
+        windowtitle: {
+            title_map: opt([]),
         },
         workspaces: {
             show_icons: opt(false),
@@ -831,7 +851,7 @@ const options = mkOptions(OPTIONS, {
         cache_actions: opt(true),
     },
 
-    dummy: opt(true)
+    dummy: opt(true),
 })
 
 globalThis["options"] = options
