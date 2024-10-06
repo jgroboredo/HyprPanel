@@ -21,6 +21,7 @@ import {
 } from 'lib/types/options';
 import { MatugenScheme, MatugenTheme, MatugenVariations } from 'lib/types/options';
 import { UnitType } from 'lib/types/weather';
+import { Transition } from 'lib/types/widget';
 import { WorkspaceIcons, WorkspaceIconsColored } from 'lib/types/workspace';
 
 // WARN: CHANGING THESE VALUES WILL PREVENT MATUGEN COLOR GENERATION FOR THE CHANGED VALUE
@@ -188,6 +189,7 @@ const options = mkOptions(OPTIONS, {
                 workspaces: {
                     background: opt(colors.base2),
                     enableBorder: opt(false),
+                    smartHighlight: opt(true),
                     border: opt(colors.pink),
                     available: opt(colors.sky),
                     occupied: opt(colors.flamingo),
@@ -861,6 +863,7 @@ const options = mkOptions(OPTIONS, {
         },
         workspaces: {
             show_icons: opt(false),
+            showAllActive: opt(true),
             ignored: opt(''),
             show_numbered: opt(false),
             showWsIcons: opt(false),
@@ -874,7 +877,7 @@ const options = mkOptions(OPTIONS, {
             workspaces: opt(10),
             spacing: opt(1),
             monitorSpecific: opt(true),
-            hideUnoccupied: opt(false),
+            hideUnoccupied: opt(true),
             workspaceMask: opt(false),
             reverse_scroll: opt(false),
             scroll_speed: opt(5),
@@ -1005,6 +1008,7 @@ const options = mkOptions(OPTIONS, {
             },
             submap: {
                 label: opt(true),
+                showSubmapName: opt(true),
                 enabledIcon: opt('󰌐'),
                 disabledIcon: opt('󰌌'),
                 enabledText: opt('Submap On'),
@@ -1037,6 +1041,8 @@ const options = mkOptions(OPTIONS, {
     },
 
     menus: {
+        transition: opt<Transition>('crossfade'),
+        transitionTime: opt(200),
         power: {
             showLabel: opt(true),
             confirmation: opt(true),
@@ -1132,6 +1138,7 @@ const options = mkOptions(OPTIONS, {
                 military: opt(false),
             },
             weather: {
+                enabled: opt(true),
                 interval: opt(60000),
                 unit: opt<UnitType>('imperial'),
                 location: opt('Los Angeles'),

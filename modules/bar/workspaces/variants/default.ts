@@ -5,6 +5,7 @@ import { range } from 'lib/utils';
 import { BoxWidget } from 'lib/types/widget';
 import { getWsColor, renderClassnames, renderLabel } from '../utils';
 import { WorkspaceIconMap } from 'lib/types/workspace';
+import { Monitor } from 'types/service/hyprland';
 
 const { workspaces, monitorSpecific, workspaceMask, spacing, ignored } = options.bar.workspaces;
 export const defaultWses = (monitor: number): BoxWidget => {
@@ -41,16 +42,20 @@ export const defaultWses = (monitor: number): BoxWidget => {
                                         options.bar.workspaces.showWsIcons.bind('value'),
                                         options.bar.workspaces.workspaceIconMap.bind('value'),
                                         options.theme.matugen.bind('value'),
+                                        options.theme.bar.buttons.workspaces.smartHighlight.bind('value'),
+                                        hyprland.bind('monitors'),
                                     ],
                                     (
                                         sp: number,
                                         showWsIcons: boolean,
                                         workspaceIconMap: WorkspaceIconMap,
                                         matugen: boolean,
+                                        smartHighlight: boolean,
+                                        monitors: Monitor[],
                                     ) => {
                                         return (
                                             `margin: 0rem ${0.375 * sp}rem;` +
-                                            `${showWsIcons && !matugen ? getWsColor(workspaceIconMap, i) : ''}`
+                                            `${showWsIcons && !matugen ? getWsColor(workspaceIconMap, i, smartHighlight, monitor, monitors) : ''}`
                                         );
                                     },
                                 ),
@@ -60,21 +65,27 @@ export const defaultWses = (monitor: number): BoxWidget => {
                                         options.bar.workspaces.show_numbered.bind('value'),
                                         options.bar.workspaces.numbered_active_indicator.bind('value'),
                                         options.bar.workspaces.showWsIcons.bind('value'),
+                                        options.theme.bar.buttons.workspaces.smartHighlight.bind('value'),
+                                        hyprland.bind('monitors'),
                                         options.bar.workspaces.icons.available.bind('value'),
                                         options.bar.workspaces.icons.active.bind('value'),
-                                        hyprland.active.workspace.bind('id'),
                                     ],
                                     (
                                         showIcons: boolean,
                                         showNumbered: boolean,
                                         numberedActiveIndicator: string,
                                         showWsIcons: boolean,
+                                        smartHighlight: boolean,
+                                        monitors: Monitor[],
                                     ) => {
                                         return renderClassnames(
                                             showIcons,
                                             showNumbered,
                                             numberedActiveIndicator,
                                             showWsIcons,
+                                            smartHighlight,
+                                            monitor,
+                                            monitors,
                                             i,
                                         );
                                     },
@@ -88,7 +99,7 @@ export const defaultWses = (monitor: number): BoxWidget => {
                                         options.bar.workspaces.workspaceIconMap.bind('value'),
                                         options.bar.workspaces.showWsIcons.bind('value'),
                                         workspaceMask.bind('value'),
-                                        hyprland.active.workspace.bind('id'),
+                                        hyprland.bind('monitors'),
                                     ],
                                     (
                                         showIcons: boolean,
@@ -98,6 +109,7 @@ export const defaultWses = (monitor: number): BoxWidget => {
                                         wsIconMap: WorkspaceIconMap,
                                         showWsIcons: boolean,
                                         workspaceMask: boolean,
+                                        monitors: Monitor[],
                                     ) => {
                                         return renderLabel(
                                             showIcons,
@@ -110,6 +122,7 @@ export const defaultWses = (monitor: number): BoxWidget => {
                                             i,
                                             index,
                                             monitor,
+                                            monitors,
                                         );
                                     },
                                 ),

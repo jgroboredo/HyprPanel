@@ -191,6 +191,12 @@ export const BarSettings = (): Scrollable<Gtk.Widget, Gtk.Widget> => {
                     type: 'boolean',
                 }),
                 Option({
+                    opt: options.bar.workspaces.showAllActive,
+                    title: 'Mark Active Workspace On All Monitors',
+                    subtitle: 'Marks the currently active workspace on each monitor.',
+                    type: 'boolean',
+                }),
+                Option({
                     opt: options.theme.bar.buttons.workspaces.fontSize,
                     title: 'Indicator Size',
                     subtitle:
@@ -229,6 +235,14 @@ export const BarSettings = (): Scrollable<Gtk.Widget, Gtk.Widget> => {
                     subtitle: 'Only applicable if Workspace Numbers are enabled',
                     type: 'enum',
                     enums: ['underline', 'highlight', 'color'],
+                }),
+                Option({
+                    opt: options.theme.bar.buttons.workspaces.smartHighlight,
+                    title: 'Smart Highlight',
+                    subtitle:
+                        'Automatically determines the highlight color of the workspace icon.\n' +
+                        'Only compatible with mapped icons.',
+                    type: 'boolean',
                 }),
                 Option({
                     opt: options.theme.bar.buttons.workspaces.numbered_active_highlight_border,
